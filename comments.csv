@@ -1,0 +1,5 @@
+comment_id, issue_id, account_id, email_address, display_name, active, account_type, text, update_author_account_id, update_author_display_name	,update_author_active, update_author_email_address, update_author_account_type, created, updated
+
+1,1001,1234,johndoe@example.com,John Doe,True,User,This is a comment from John Doe,5678,Jane Smith,True,janesmith@example.com,User,2024-03-18T10:00:00Z,2024-03-18T10:05:00Z
+2,1002,5678,janesmith@example.com,Jane Smith,False,Admin,Another comment from Jane Smith,9876,Bob Johnson,False,bobjohnson@example.com,User,2024-03-18T10:10:00Z,2024-03-18T10:15:00Z
+3,1003,9876,bobjohnson@example.com,Bob Johnson,True,User,A comment from Bob Johnson,1234,John Doe,True,johndoe@example.com,User,2024-03-18T10:20:00Z,2024-03-18T10:25:00Z

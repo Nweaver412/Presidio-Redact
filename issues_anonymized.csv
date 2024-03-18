@@ -1,0 +1,11 @@
+key, status_category_change_date, issue_type_id, issue_type_name,time_spent, project_key, fix_versions, aggregate_time_spent, resolution, resolution_date, resolution_id, resolution_name
+ABC-123,<DATE_TIME>,1,Bug,2h,<LOCATION>,1.0,10h,Fixed,<DATE_TIME>,1,Resolved
+DEF-456,<DATE_TIME>,2,Task,4h,<NRP>,2.0,20h,Done,<DATE_TIME>,2,Closed
+GHI-789,<DATE_TIME>,1,Bug,6h,<LOCATION>,1.1,30h,Fixed,<DATE_TIME>,1,Resolved
+<PERSON>,<DATE_TIME>,3,Story,8h,PROJECT3,3.0,40h,Done,<DATE_TIME>,2,Closed
+<LOCATION>,<DATE_TIME>,2,Task,10h,<NRP>,2.1,50h,Fixed,<DATE_TIME>,1,Resolved
+PQR-678,<DATE_TIME>,1,Bug,12h,<LOCATION>,1.2,60h,Done,<DATE_TIME>,2,Closed
+STU-901,<DATE_TIME>,3,Story,14h,PROJECT3,3.1,70h,Fixed,<DATE_TIME>,1,Resolved
+<PERSON>,<DATE_TIME>,2,Task,16h,<NRP>,2.2,80h,Done,<DATE_TIME>,2,Closed
+YZA-567,<DATE_TIME>,1,Bug,18h,<LOCATION>,1.3,90h,Fixed,<DATE_TIME>,1,Resolved
+BCD-890,<DATE_TIME>,3,Story,20h,PROJECT3,3.2,100h,Done,<DATE_TIME>,2,Closed

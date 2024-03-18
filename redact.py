@@ -1,18 +1,11 @@
 import csv
-import json
-import os
-import pandas as pd
-
+import pprint
 from typing import List, Iterable, Optional
+
 from presidio_analyzer import BatchAnalyzerEngine, DictAnalyzerResult
 from presidio_anonymizer import BatchAnonymizerEngine
-
 class CSVAnalyzer(BatchAnalyzerEngine):
-    """_summary_
 
-    Args:
-        BatchAnalyzerEngine (_type_): _description_
-    """
     def analyze_csv(
         self,
         csv_full_path: str,
@@ -27,53 +20,26 @@ class CSVAnalyzer(BatchAnalyzerEngine):
             analyzer_results = self.analyze_dict(csv_dict, language, keys_to_skip)
             return list(analyzer_results)
 
-def analyze_csv_files(issues_csv_path: str, comments_csv_path: str) -> List[DictAnalyzerResult]:
-    """_summary_
+# No __main__ block, just the class definition and method
+def dict_to_csv(data, filename):
+    # Extract keys and transpose values
+    keys = list(data.keys())
+    values = list(zip(*data.values()))
+    
+    # Write data to CSV file
+    with open(filename, 'w', newline='') as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerow(keys)  # Write header
+        writer.writerows(values)
 
-    Args:
-        issues_csv_path (str): _description_
-        comments_csv_path (str): _description_
 
-    Returns:
-        List[DictAnalyzerResult]: _description_
-    """
-    analyzer = CSVAnalyzer()
-    issues_results = analyzer.analyze_csv(issues_csv_path, language="en")
-    comments_results = analyzer.analyze_csv(comments_csv_path, language="en")
-    return issues_results, comments_results
+# Instantiate and use the CSVAnalyzer class
+analyzer = CSVAnalyzer()
+analyzer_results = analyzer.analyze_csv('comments.csv', language="en")
+# pprint.pprint(analyzer_results)
 
-def anonymize_csv_files(analyzer_results: List[DictAnalyzerResult]) -> List[Dict]:
-    """_summary_
+anonymizer = BatchAnonymizerEngine()
+anonymized_results = anonymizer.anonymize_dict(analyzer_results)
+print(anonymized_results)
+dict_to_csv(anonymized_results, 'comments_anonymized.csv')
 
-    Args:
-        analyzer_results (List[DictAnalyzerResult]): _description_
-
-    Returns:
-        List[Dict]: _description_
-    """
-    anonymizer = BatchAnonymizerEngine()
-    anonymized_results = anonymizer.anonymize_dict(analyzer_results)
-    return anonymized_results
-
-if not os.path.exists('out/files'):
-    os.makedirs('out/files')
-
-issues_csv_path = 'in/tables/issues.csv'
-comments_csv_path = 'in/tables/comments.csv'
-
-issues_results, comments_results = analyze_csv_files(issues_csv_path, comments_csv_path)
-
-anonymized_issues_results = anonymize_csv_files(issues_results)
-anonymized_comments_results = anonymize_csv_files(comments_results)
-
-issues_output_csv_path = 'out/files/issues_anonymized.csv'
-comments_output_csv_path = 'out/files/comments_anonymized.csv'
-
-for result, output_csv_path in zip((anonymized_issues_results, anonymized_comments_results),
-                                   (issues_output_csv_path, comments_output_csv_path)):
-    with open(output_csv_path, 'w', newline='') as csvfile:
-        writer = csv.DictWriter(csvfile, fieldnames=result[0].keys())
-        writer.writeheader()
-        writer.writerows(result)
-
-print("Anonymized CSV files saved successfully.")
